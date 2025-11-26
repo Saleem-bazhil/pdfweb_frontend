@@ -194,7 +194,7 @@ const GuideCard = ({ guides, setSelectedGuide }) => {
                   ))}
                   {topics.length > 3 && (
                     <span className="text-[11px] sm:text-xs text-blue-600">
-                      +{topics.length - 3} more
+                     
                     </span>
                   )}
                 </div>
