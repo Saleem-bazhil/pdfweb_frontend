@@ -94,8 +94,6 @@ const GuideCard = ({ guides, setSelectedGuide }) => {
 
         // debug (you can remove after checking)
         console.log("Guide:", guide.title, "→ subject:", subject, "→ img:", imgSrc);
-
-        // ✅ per-user + per-guide paid flag
         const paidKey =
           currentUserId && id ? `paid_${currentUserId}_${id}` : null;
 
@@ -133,31 +131,20 @@ const GuideCard = ({ guides, setSelectedGuide }) => {
               <CardHeader
                 className="
                   relative h-40 sm:h-48 flex items-center justify-center 
-                  p-0 rounded-t-2xl overflow-hidden
+                  p-0 rounded-t-2xl overflow-hidden 
+                  bg-gray-50 {/* Added a light background color for the empty space */}
                 "
               >
-                {/* Image layer */}
+                {/* Image layer - CHANGED object-cover TO object-contain */}
                 <img
                   src={imgSrc}
                   alt={guide.title || "Guide"}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-contain p-2 rounded-t-2xl" 
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}
                 />
 
-                {/* Semi-transparent gradient on top of image */}
-                {/* <div
-                  className="
-                    absolute inset-0 
-                    bg-gradient-to-br from-blue-500/40 via-indigo-500/40 to-blue-700/40
-                    group-hover:brightness-110 transition-all duration-500
-                  "
-                /> */}
-
-                {/* Icons on top */}
-                {/* <BookOpen className="relative h-16 w-16 sm:h-20 sm:w-20 text-white/90 z-10 drop-shadow-lg" />
-                <Lock className="absolute bottom-3 right-3 h-5 w-5 sm:h-6 sm:w-6 text-white/80 z-10" /> */}
               </CardHeader>
 
               <CardContent className="p-5 sm:p-6 space-y-4 sm:space-y-5">

@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "../assets/logo.png";
 
-const TOKEN_KEY = "token"; // same key used in Login.jsx
+const TOKEN_KEY = "token";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,24 +19,14 @@ export default function Header() {
       ? "text-primary font-semibold"
       : "text-foreground/80";
 
-  // 🔁 Sync auth state with localStorage on first load + every route change
   useEffect(() => {
     const hasToken = !!localStorage.getItem(TOKEN_KEY);
     setIsAuthenticated(hasToken);
   }, [location.pathname]);
 
   const handleLogout = () => {
-    // 🔒 Clear auth data only
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
-    // ❌ DO NOT remove paid_* so old purchases stay after re-login
-    // Object.keys(localStorage).forEach((key) => {
-    //   if (key.startsWith("paid_")) {
-    //     localStorage.removeItem(key);
-    //   }
-    // });
-
     setIsAuthenticated(false);
     setIsMenuOpen(false);
     navigate("/login");
@@ -43,106 +34,107 @@ export default function Header() {
 
   return (
     <>
-      {/* Main Navbar */}
+      {/* NAVBAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-xl border-b border-border shadow-sm">
         <div className="container mx-auto px-4 lg:px-12">
-          <div className="flex items-center h-20 md:justify-between">
-            {/* Mobile Menu Button (left on mobile) */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden order-1"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X /> : <Menu />}
-            </Button>
-
-            {/* Logo */}
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* LEFT — LOGO */}
             <Link
               to="/"
-              className="flex-1 flex justify-center md:flex-none md:justify-start order-2 items-center space-x-2"
+              className="flex items-center gap-2 sm:gap-3 max-w-[65%]"
             >
-              <div className="text-3xl font-bold text-primary poppins-semibold tracking-wide">
-                Skiez Tech
-              </div>
+              <img
+                src={logo}
+                alt="Skiez Pdf Books"
+                className="md:h-30 h-20  w-auto object-contain"
+              />
+              <span className="text-xl sm:text-2xl md:text-2xl font-bold text-primary poppins-semibold tracking-wide truncate">
+                Skiez Pdf Books
+              </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-10 order-3">
-              <Link
-                to="/"
-                className={`nav-link poppins-medium ${isActive("/")}`}
-              >
+            {/* CENTER — DESKTOP MENU */}
+            <nav className="hidden md:flex items-center space-x-8 lg:space-x-10">
+              <Link to="/" className={`poppins-medium ${isActive("/")}`}>
                 Home
               </Link>
               <Link
                 to="/guide"
-                className={`nav-link poppins-medium ${isActive("/guide")}`}
+                className={`poppins-medium ${isActive("/guide")}`}
               >
                 Browse Guide
               </Link>
               <Link
                 to="/courses"
-                className={`nav-link poppins-medium ${isActive("/courses")}`}
+                className={`poppins-medium ${isActive("/courses")}`}
               >
                 Courses
               </Link>
               <Link
                 to="/study-price"
-                className={`nav-link poppins-medium ${isActive("/study-price")}`}
+                className={`poppins-medium ${isActive("/study-price")}`}
               >
                 Pricing
               </Link>
             </nav>
 
-            {/* Desktop Buttons */}
-            <div className="hidden md:flex items-center space-x-4 order-4">
-              {!isAuthenticated ? (
-                <>
-                  <Button
-                    variant="glass"
-                    className="poppins-medium hover:scale-[1.05] transition"
-                  >
-                    <Link to="/login">Login</Link>
-                  </Button>
-                  <Button
-                    variant="default"
-                    className="poppins-medium hover:scale-[1.08] transition"
-                  >
-                    Get Started
-                  </Button>
-                </>
-              ) : (
-                <>
+            {/* RIGHT — BUTTONS / MOBILE MENU ICON */}
+            <div className="flex items-center gap-3">
+              {/* Desktop buttons */}
+              <div className="hidden md:flex items-center gap-3">
+                {!isAuthenticated ? (
+                  <>
+                    <Button variant="glass" className="poppins-medium">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                    <Button
+                      variant="default"
+                      className="poppins-medium"
+                      onClick={() => navigate("/")}
+                    >
+                      Get Started
+                    </Button>
+                  </>
+                ) : (
                   <Button
                     variant="outline"
-                    className="poppins-medium hover:scale-[1.05] transition"
+                    className="poppins-medium"
                     onClick={handleLogout}
                   >
                     Logout
                   </Button>
-                </>
-              )}
+                )}
+              </div>
+
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+              >
+                {isMenuOpen ? <X /> : <Menu />}
+              </Button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Nav Menu */}
+      {/* MOBILE MENU */}
       <div
-        className={`md:hidden fixed left-0 right-0 top-20 z-40
+        className={`md:hidden fixed left-0 right-0 top-16 sm:top-20 z-40
         bg-card/95 backdrop-blur-xl border-b border-border shadow-lg
         transform transition-all duration-300 ease-in-out
         ${
           isMenuOpen
             ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-8 pointer-events-none"
+            : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col space-y-2 p-6 text-lg">
+        <div className="flex flex-col space-y-4 p-6 text-base sm:text-lg">
           <Link
             to="/"
-            className={`nav-link poppins-medium text-base ${isActive("/")}`}
+            className={`poppins-medium ${isActive("/")}`}
             onClick={() => setIsMenuOpen(false)}
           >
             Home
@@ -150,7 +142,7 @@ export default function Header() {
 
           <Link
             to="/guide"
-            className={`nav-link poppins-medium text-base ${isActive("/guide")}`}
+            className={`poppins-medium ${isActive("/guide")}`}
             onClick={() => setIsMenuOpen(false)}
           >
             Browse Guide
@@ -158,7 +150,7 @@ export default function Header() {
 
           <Link
             to="/study-price"
-            className={`nav-link poppins-medium ${isActive("/study-price")}`}
+            className={`poppins-medium ${isActive("/study-price")}`}
             onClick={() => setIsMenuOpen(false)}
           >
             Pricing
@@ -168,7 +160,7 @@ export default function Header() {
             <>
               <Button
                 variant="default"
-                className="w-full poppins-medium hover:scale-[1.05] transition"
+                className="w-full poppins-medium"
                 onClick={() => {
                   setIsMenuOpen(false);
                   navigate("/");
@@ -179,7 +171,7 @@ export default function Header() {
 
               <Button
                 variant="outline"
-                className="w-full poppins-medium hover:scale-[1.05] transition"
+                className="w-full poppins-medium"
                 onClick={() => {
                   setIsMenuOpen(false);
                   navigate("/login");
@@ -189,15 +181,13 @@ export default function Header() {
               </Button>
             </>
           ) : (
-            <>
-              <Button
-                variant="outline"
-                className="w-full poppins-medium hover:scale-[1.05] transition"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            </>
+            <Button
+              variant="outline"
+              className="w-full poppins-medium"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
           )}
         </div>
       </div>

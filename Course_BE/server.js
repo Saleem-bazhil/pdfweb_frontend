@@ -38,7 +38,7 @@ app.use(
   })
 );
 
-// ❌ DO NOT expose /uploads publicly (this would leak PDFs)
+//DO NOT expose /uploads publicly (this would leak PDFs)
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);

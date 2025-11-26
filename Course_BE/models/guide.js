@@ -8,10 +8,13 @@ const GuideSchema = new mongoose.Schema(
 
     image: { type: String, required: true },
 
-    // optional now – not required
+    // Cloudinary PDF URL (secure_url)
     pdfUrl: { type: String },
 
-    // 🔥 new: link to PdfFile document
+    // Cloudinary public_id (IMPORTANT)
+    pdfPublicId: { type: String },
+
+    // If you use MongoDB GridFS or own storage (optional)
     pdfFile: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PdfFile",
