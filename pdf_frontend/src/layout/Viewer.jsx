@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../Api";
-import SecurePdfViewer from "./SecurePdfViewer"; // 👈 important path
+import SecurePdfViewer from "./SecurePdfViewer";
 
 const Viewer = () => {
   const { guideId } = useParams(); // real Mongo _id
@@ -52,8 +52,10 @@ const Viewer = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-32 flex items-center justify-center">
-        <p>Loading guide…</p>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-sm md:text-base text-muted-foreground">
+          Loading guide…
+        </p>
       </div>
     );
   }
@@ -64,9 +66,28 @@ const Viewer = () => {
   }
 
   return (
-    <div className="min-h-screen pt-24 bg-background">
-      <div className="max-w-5xl mx-auto h-[80vh] border rounded-xl overflow-hidden shadow-lg">
-        <SecurePdfViewer pdfData={pdfData} />
+    <div className="min-h-screen bg-background pt-16 md:pt-24">
+      {/* Wrapper to give side padding on mobile but keep max width on desktop */}
+      <div className="mx-auto w-full max-w-5xl px-2 sm:px-3 md:px-4">
+        {/* Viewer container */}
+        <div
+          className="
+            h-[calc(100vh-5rem)]
+            md:h-[80vh]
+            w-full
+            rounded-none
+            md:rounded-xl
+            border-0
+            md:border
+            shadow-none
+            md:shadow-lg
+            overflow-hidden
+            bg-card
+          "
+        >
+          {/* Make sure SecurePdfViewer uses full space */}
+          <SecurePdfViewer pdfData={pdfData} />
+        </div>
       </div>
     </div>
   );
