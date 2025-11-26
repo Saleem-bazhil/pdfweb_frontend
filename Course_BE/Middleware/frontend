@@ -1,0 +1,19 @@
+// const generatePDF = async () => {
+//   const data = {
+//     title: "My PDF Title",
+//     description: "This is the content of the PDF",
+//   };
+
+//   const response = await fetch("http://localhost:5000/api/pdf/generate", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+
+//   const blob = await response.blob();
+//   const url = window.URL.createObjectURL(blob);
+//   const a = document.createElement("a");
+//   a.href = url;
+//   a.download = "mypdf.pdf";
+//   a.click();
+// };

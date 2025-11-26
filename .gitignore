@@ -1,4 +1,37 @@
-node_modules
+# Node modules
+node_modules/
+
+# Package manager logs
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Frontend build (vite)
+pdf_frontend/dist/
+
+# Environment files
+.env
+.env.*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Server uploads (don't commit uploaded PDFs)
+Course_BE/uploads/
+
+# Misc
+coverage/
+.nyc_output/
