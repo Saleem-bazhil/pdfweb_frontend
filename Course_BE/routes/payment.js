@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const router = express.Router();
 
 const razorpay = require("../config/razorpay");     // ✅ your Razorpay instance
-const Guide = require("../models/Guide");          // ✅ Guide model
+const Guide = require("../models/guide");          // ✅ Guide model
 const Payment = require("../models/Payment");      // ✅ Payment model
 const auth = require("../middleware/auth");        // ✅ sets req.user
 
