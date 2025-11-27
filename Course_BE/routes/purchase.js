@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Purchase = require("../models/purchase");
-const Guide = require("../models/Guide");    // use same casing as file
+const Guide = require("../models/guide");    // use same casing as file
 const auth = require("../middleware/auth");
 
 router.post("/buy", auth, async (req, res) => {
