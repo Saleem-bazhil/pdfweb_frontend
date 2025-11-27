@@ -72,7 +72,7 @@ const GuideCard = ({ guides, setSelectedGuide }) => {
           ? guide.tags
           : [];
 
-        // 🔥 Always choose one of our local images based on subject/title
+        //  Always choose one of our local images based on subject/title
         const subjLower = (subject || "").toLowerCase();
         const titleLower = (guide.title || "").toLowerCase();
         let imgSrc = maths; // default

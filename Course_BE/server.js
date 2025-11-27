@@ -47,7 +47,7 @@ app.use(
         callback(new Error("CORS not allowed"));
       }
     },
-    credentials: true,
+    credentials: true, 
   })
 );
 

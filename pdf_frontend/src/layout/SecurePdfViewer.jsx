@@ -37,10 +37,10 @@ export default function SecurePdfViewer({ pdfData }) {
 
           const page = await pdf.getPage(pageNum);
 
-          // 👇 base viewport at scale 1
+          // base viewport at scale 1
           const baseViewport = page.getViewport({ scale: 1 });
 
-          // 👇 fit width to container (mobile friendly)
+          // fit width to container (mobile friendly)
           const containerWidth = container.clientWidth || baseViewport.width;
           const scale = containerWidth / baseViewport.width;
 
@@ -54,7 +54,7 @@ export default function SecurePdfViewer({ pdfData }) {
           canvas.width = viewport.width;
           canvas.height = viewport.height;
 
-          // 👇 make canvas responsive in layout
+          // make canvas responsive in layout
           canvas.style.width = "100%";
           canvas.style.height = "auto";
           canvas.style.display = "block"; // remove inline gaps

@@ -16,7 +16,7 @@ const PaymentModal = ({ guide, onClose }) => {
 
       // 1️⃣ Create Razorpay order in backend
       const { data } = await api.post(`/payment/create-order/${guideId}`);
-      console.log("✅ Order created from backend:", data);
+      console.log(" Order created from backend:", data);
 
       if (!data?.success) {
         alert("Failed to create order. Please try again.");
@@ -27,15 +27,15 @@ const PaymentModal = ({ guide, onClose }) => {
         key: data.keyId,
         amount: data.amount,
         currency: data.currency || "INR",
-        name: "Skiez Tech",
+        name: "Skiez Pdf Books",
         description: `Purchase of ${guide.title}`,
         order_id: data.orderId,
 
         handler: async function (response) {
           try {
-            console.log("✅ Razorpay success:", response);
+            console.log(" Razorpay success:", response);
 
-            // 2️⃣ Verify payment on backend
+            // Verify payment on backend
             const verifyRes = await api.post("/payment/verify", {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -48,7 +48,7 @@ const PaymentModal = ({ guide, onClose }) => {
               return;
             }
 
-            // 3️⃣ Save purchase record
+            // 3️ Save purchase record
             try {
               await api.post("/purchase/buy", {
                 guideId,
@@ -61,15 +61,15 @@ const PaymentModal = ({ guide, onClose }) => {
 
               // If backend says "Already purchased", we treat it as success
               if (status === 400 && msg === "Already purchased") {
-                console.log("ℹ️ User already purchased this guide, continuing.");
+                console.log("ℹ User already purchased this guide, continuing.");
               } else {
-                console.error("❌ Purchase save error:", err);
+                console.error(" Purchase save error:", err);
                 alert("Payment verified but could not save purchase. Contact support.");
                 return;
               }
             }
 
-            // 4️⃣ Mark as paid in localStorage for THIS user + THIS guide
+            //  Mark as paid in localStorage for THIS user + THIS guide
             try {
               const rawUser = localStorage.getItem("user");
               const user = rawUser ? JSON.parse(rawUser) : null;
@@ -81,20 +81,18 @@ const PaymentModal = ({ guide, onClose }) => {
             } catch (e) {
               console.warn("Could not save paid flag:", e);
             }
-
-            alert("🎉 Payment Successful! Guide unlocked.");
+            alert(" Payment Successful! Guide unlocked.");
             onClose();
-            // 5️⃣ Go to viewer for this specific guide
             navigate(`/viewer/${guideId}`);
           } catch (err) {
-            console.error("❌ Error after payment:", err);
+            console.error("Error after payment:", err);
             alert("Something went wrong after payment. Please contact support.");
           }
         },
 
         prefill: {
-          name: "Suhas",
-          email: "suhas@example.com",
+          name: "your name",
+          email: "yourname@gmail.com",
         },
         theme: {
           color: "#4f46e5",
@@ -104,13 +102,13 @@ const PaymentModal = ({ guide, onClose }) => {
       const razor = new window.Razorpay(options);
 
       razor.on("payment.failed", function (response) {
-        console.error("❌ Payment failed:", response.error);
+        console.error("Payment failed:", response.error);
         alert("Payment Failed: " + response.error.description);
       });
 
       razor.open();
     } catch (error) {
-      console.error("🔥 Razorpay Error:", error);
+      console.error(" Razorpay Error:", error);
       alert("Payment Failed. Please try again.");
     }
   };

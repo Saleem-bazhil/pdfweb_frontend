@@ -5,16 +5,14 @@ import api from "../Api";
 import SecurePdfViewer from "./SecurePdfViewer";
 
 const Viewer = () => {
-  const { guideId } = useParams(); // real Mongo _id
+  const { guideId } = useParams(); 
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  const [pdfData, setPdfData] = useState(null); // raw bytes for pdf.js
-
+  const [pdfData, setPdfData] = useState(null); 
   useEffect(() => {
     const fetchPdf = async () => {
       try {
-        // ✅ get bytes from backend
         const res = await api.get(`/pdf/view/${guideId}`, {
           responseType: "arraybuffer",
         });

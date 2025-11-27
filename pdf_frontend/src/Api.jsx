@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://pdfweb-frontend.onrender.com/api",
+  baseURL: "https://pdfweb-backend.onrender.com/api",
   withCredentials: false,
 });
 
