@@ -12,10 +12,15 @@ const courseRoutes = require("./routes/Courses");
 const lessonRoutes = require("./routes/lessons");
 const paymentRoutes = require("./routes/payment");
 const pdfRoutes = require("./routes/pdf");
-const guideRoutes = require("./routes/guides"); // ✅ file is guides.js
+const guideRoutes = require("./routes/guides"); 
 const purchaseRoutes = require("./routes/purchase");
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const allowedOrigins = [
+  FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:8133",
+];
 
 connectDB();
 
@@ -33,7 +38,14 @@ app.use(
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
     credentials: true,
   })
 );
