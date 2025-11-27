@@ -4,10 +4,10 @@ const crypto = require("crypto");
 
 const router = express.Router();
 
-const razorpay = require("../config/razorpay");     // ✅ your Razorpay instance
-const Guide = require("../models/guide");          // ✅ Guide model
-const Payment = require("../models/payment");      // ✅ Payment model
-const auth = require("../middleware/auth");        // ✅ sets req.user
+const razorpay = require("../config/razorpay");     
+const Guide = require("../models/guide");        
+const Payment = require("../models/payment");      
+const auth = require("../Middleware/auth");        
 
 // ==============================
 // 1️⃣ CREATE RAZORPAY ORDER
