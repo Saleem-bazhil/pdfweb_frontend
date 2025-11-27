@@ -1,6 +1,6 @@
 // routes/guides.js
 const express = require("express");
-const Guide = require("../models/Guide");
+const Guide = require("../models/guide");
 const router = express.Router();
 
 // ⬇️ NEW: extra imports for Cloudinary + file upload
