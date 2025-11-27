@@ -20,6 +20,7 @@ const allowedOrigins = [
   FRONTEND_URL,
   "http://localhost:5173",
   "http://localhost:8133",
+  "https://pdfweb-frontend-1.onrender.com",
 ];
 
 connectDB();
