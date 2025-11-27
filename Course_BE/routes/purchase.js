@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Purchase = require("../models/purchase");
 const Guide = require("../models/guide");    // use same casing as file
-const auth = require("../middleware/auth");
+const auth = require("../Middleware/auth");  // ✅ matches `Middleware/`
 
 router.post("/buy", auth, async (req, res) => {
   try {
